@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../app/store";
 
-const initialState = {
+export interface navDrawerState {
+  isNavDrawerOpen: boolean;
+}
+
+const initialState: navDrawerState = {
   isNavDrawerOpen: true,
 };
 
@@ -16,6 +21,7 @@ export const navDrawerSlice = createSlice({
 
 export const { setNavDrawerOpen } = navDrawerSlice.actions;
 
-export const selectIsNavDrawerOpen = (state) => state.navDrawer.isNavDrawerOpen;
+export const selectIsNavDrawerOpen = (state: RootState) =>
+  state.navDrawer.isNavDrawerOpen;
 
 export default navDrawerSlice.reducer;

@@ -42,21 +42,8 @@ class TestEmailCard:
         assert len(
             result) == 0, f'Error. Expected {expected_id} to not to be there, but it was displayed'
 
-    def test_email_address_input_is_rendered(self):
+    def test_email_input_is_rendered(self):
         expected_id = "email-input"
-        result = self.driver.find_elements_by_id(expected_id)
-        assert len(
-            result) == 1, f'Error. Expected {expected_id}, but could not find that id'
-
-    def test_email_address_input_displays_to(self):
-        expected_id = "email-input"
-        result = self.driver.find_element_by_id(
-            expected_id).get_attribute('placeholder')
-        expected_text = 'To'
-        assert result == expected_text, f'Error. Expected {expected_text}, but could not find that text'
-
-    def test_email_address_input_displays_email_list(self):
-        expected_id = "email-list"
         result = self.driver.find_elements_by_id(expected_id)
         assert len(
             result) == 1, f'Error. Expected {expected_id}, but could not find that id'
@@ -67,7 +54,7 @@ class TestEmailCard:
         assert len(
             result) == 1, f'Error. Expected {expected_id}, but could not find that id'
 
-    def test_email_address_input_displays_subject(self):
+    def test_subject_input_displays_subject(self):
         expected_id = "subject-input"
         result = self.driver.find_element_by_id(
             expected_id).get_attribute('placeholder')

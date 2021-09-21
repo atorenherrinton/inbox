@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { setEmailCardOpen } from "../../slices/email-card.slice";
 import { useDispatch } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";

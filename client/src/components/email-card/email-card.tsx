@@ -1,7 +1,6 @@
-import React, { Fragment, useState } from "react";
-import { addEmail } from "../../slices/email-list.slice";
+import { Fragment } from "react";
 import { setEmailCardOpen } from "../../slices/email-card.slice";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from '../../app/hooks';
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -10,28 +9,14 @@ import CardActions from "@mui/material/CardActions";
 import CardHeader from "@mui/material/CardHeader";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EmailList from "../email-list/email-list";
+import EmailInput from "../email-input/email-input";
 import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 
 const EmailCard = () => {
-  const dispatch = useDispatch();
-  const [emailAddress, setEmailAddress] = useState("");
-
-  const handleAddEmail = (e) => {
-    if (e.key === "Tab") {
-      e.preventDefault();
-      dispatch(addEmail(emailAddress));
-      setEmailAddress("");
-    }
-  };
-
-  const handleSetEmail = (e) => {
-    setEmailAddress(e.target.value);
-  };
+  const dispatch = useAppDispatch();
 
   return (
     <Card
@@ -73,23 +58,7 @@ const EmailCard = () => {
         }}
       />
       <CardContent>
-        <TextField
-          id="email-input"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start" sx={{ margin: 0 }}>
-                <EmailList />
-              </InputAdornment>
-            ),
-          }}
-          fullWidth
-          multiline
-          onChange={handleSetEmail}
-          onKeyDown={handleAddEmail}
-          placeholder="To"
-          size="small"
-          value={emailAddress}
-        />
+        <EmailInput />
         <TextField
           id="subject-input"
           fullWidth
@@ -101,7 +70,7 @@ const EmailCard = () => {
           id="email-body"
           fullWidth
           multiline
-          rows={15}
+          rows={12}
           sx={{ marginTop: (theme) => theme.spacing(2) }}
           variant="outlined"
         />

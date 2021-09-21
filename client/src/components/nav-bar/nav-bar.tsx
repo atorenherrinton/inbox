@@ -1,4 +1,3 @@
-import React from "react";
 import { setNavDrawerOpen } from "../../slices/nav-drawer.slice";
 import { useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
