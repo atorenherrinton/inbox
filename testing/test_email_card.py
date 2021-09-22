@@ -48,6 +48,98 @@ class TestEmailCard:
         assert len(
             result) == 1, f'Error. Expected {expected_id}, but could not find that id'
 
+    def test_focus_changes_from_email_input_to_subject_if_tab_is_pressed_and_input_empty(self):
+        self.driver.find_element_by_id(
+            "email-input").send_keys(Keys.TAB)
+        expected_id = 'subject-input'
+        result = self.driver.switch_to.active_element.get_attribute("id")
+        assert expected_id == result, f'Error. Expected {expected_id} to be focused, but {result} was focused'
+
+    def test_focus_does_not_changes_from_email_input_to_subject_if_enter_pressed_and_input_empty(self):
+        expected_id = 'email-input'
+        self.driver.find_element_by_id(
+            expected_id).send_keys(Keys.ENTER)
+        result = self.driver.switch_to.active_element.get_attribute("id")
+        assert expected_id == result, f'Error. Expected {expected_id} to be focused, but {result} was focused'
+
+    def test_no_email_address_chip_is_created_if_enter_pressed_and_email_input_empty(self):
+        self.driver.find_element_by_id(
+            'email-input').send_keys(Keys.ENTER)
+        expected_id = 'email-chip'
+        result = self.driver.find_elements_by_id(expected_id)
+        assert len(
+            result) == 0, f'Error. Expected {expected_id} to not to be there, but it was displayed'
+
+    def test_no_email_address_chip_is_created_if_enter_pressed_and_email_input_empty(self):
+        self.driver.find_element_by_id(
+            'email-input').send_keys(Keys.ENTER)
+        expected_id = 'email-chip'
+        result = self.driver.find_elements_by_id(expected_id)
+        assert len(
+            result) == 0, f'Error. Expected {expected_id} to not to be there, but it was displayed'
+
+    def test_email_input_is_not_minimized_if_there_is_no_email_chip(self):
+        expected_id = "email-input"
+        self.driver.find_element_by_id(
+            expected_id).send_keys(Keys.TAB)
+        result = self.driver.find_elements_by_id(expected_id)
+        assert len(
+            result) == 1, f'Error. Expected {expected_id}, but could not find that id'
+
+    def test_email_input_minimizes_if_there_is_at_least_one_email_address_and_tab_is_pressed(self):
+        expected_id = "email-input"
+        self.driver.find_element_by_id(
+            expected_id).send_keys(f'test@test.com{Keys.RETURN}{Keys.TAB}')
+        result = self.driver.find_elements_by_id(expected_id)
+        assert len(
+            result) == 0, f'Error. Expected not to find {expected_id}, but could it was present'
+
+    def test_email_input_reopens_if_email_chip_delete_key_pressed(self):
+        expected_id = "email-input"
+        self.driver.find_element_by_id(
+            expected_id).send_keys(f'test@test.com{Keys.TAB}{Keys.TAB}')
+        self.driver.find_element_by_id("email-chip").click()
+        result = self.driver.find_elements_by_id(expected_id)
+        assert len(
+            result) == 1, f'Error. Expected {expected_id}, but could not find that id'
+
+    def test_email_input_reopens_if_email_chip_is_pressed(self):
+        expected_id = "email-input"
+        self.driver.find_element_by_id(
+            expected_id).send_keys(f'test@test.com{Keys.TAB}{Keys.TAB}')
+        self.driver.find_element_by_id("email-chip").click()
+        result = self.driver.find_elements_by_id(expected_id)
+        assert len(
+            result) == 1, f'Error. Expected to find {expected_id}, but could it was not present'
+
+    def test_email_input_matches_value_from_chip_when_pressed(self):
+        input_text = 'test@test.com'
+        self.driver.find_element_by_id(
+            "email-input").send_keys(input_text + Keys.TAB + Keys.TAB)
+        self.driver.find_element_by_id("email-chip").click()
+        expected_id = "email-input"
+        result = self.driver.find_element_by_id(expected_id)
+        assert input_text == result.get_attribute(
+            'value'), f'Error. Expected the input text {input_text} to match the result text {result.text} but it did not'
+
+    def test_email_input_focuses_when_chip_is_pressed(self):
+        input_text = 'test@test.com'
+        self.driver.find_element_by_id(
+            "email-input").send_keys(input_text + Keys.TAB + Keys.TAB)
+        self.driver.find_element_by_id("email-chip").click()
+        expected_id = 'email-input'
+        result = self.driver.switch_to.active_element.get_attribute("id")
+        assert expected_id == result, f'Error. Expected {expected_id} to be focused, but {result} was focused'
+
+    def test_email_input_focuses_when_delete_button_on_chip_is_pressed(self):
+        input_text = 'test@test.com'
+        self.driver.find_element_by_id(
+            "email-input").send_keys(input_text + Keys.TAB + Keys.TAB)
+        self.driver.find_element_by_class_name("MuiChip-deleteIcon").click()
+        expected_id = 'email-input'
+        result = self.driver.switch_to.active_element.get_attribute("id")
+        assert expected_id == result, f'Error. Expected {expected_id} to be focused, but {result} was focused'
+
     def test_subject_input_is_rendered(self):
         expected_id = "subject-input"
         result = self.driver.find_elements_by_id(expected_id)

@@ -35,7 +35,7 @@ class TestEmailInput:
         result = self.driver.find_elements_by_id(expected_id)
         assert len(
             result) == 1, f'Error. Expected {expected_id}, but could not find that id'
-    
+
     def test_email_input_creates_email_chip_on_tab_key(self):
         self.driver.find_element_by_id(
             "email-input").send_keys(f'test@test.com{Keys.TAB}')
@@ -44,14 +44,59 @@ class TestEmailInput:
         assert len(
             result) == 1, f'Error. Expected {expected_id}, but could not find that id'
 
-    def test_email_input_displays_no_placeholder_when_an_email_chip_is_present(self):
+    def test_duplicate_emails_cannot_be_added(self):
         self.driver.find_element_by_id(
             "email-input").send_keys(f'test@test.com{Keys.TAB}')
-        expected_id = "email-input"
+        self.driver.find_element_by_id(
+            "email-input").send_keys(f'test@test.com{Keys.TAB}')
+        expected_id = 'email-chip'
+        result = self.driver.find_elements_by_id(expected_id)
+        assert len(
+            result) == 1, f'Error. Expected {expected_id} to only have 1 instance, but found {len(result)}'
+
+    def test_duplicate_emails_will_create_validation_error(self):
+        self.driver.find_element_by_id(
+            "email-input").send_keys(f'test@test.com{Keys.TAB}')
+        self.driver.find_element_by_id(
+            "email-input").send_keys(f'test@test.com{Keys.TAB}')
+        expected_id = 'email-input-helper-text'
+        result = self.driver.find_elements_by_id(expected_id)
+        assert len(
+            result) == 1, f'Error. Expected {expected_id}, but could not find that id'
+
+    def test_invalid_emails_cannot_be_added(self):
+        self.driver.find_element_by_id(
+            "email-input").send_keys(f'test{Keys.TAB}')
+        expected_id = 'email-chip'
+        result = self.driver.find_elements_by_id(expected_id)
+        assert len(
+            result) == 0, f'Error. Expected not to find {expected_id}, but it was displayed'
+
+    def test_invalid_emails_will_create_validation_error(self):
+        self.driver.find_element_by_id(
+            "email-input").send_keys(f'test{Keys.TAB}')
+        expected_id = 'email-input-helper-text'
+        result = self.driver.find_elements_by_id(expected_id)
+        assert len(
+            result) == 1, f'Error. Expected {expected_id}, but could not find that id'
+
+    def test_invalid_emails_will_not_clear_the_email_input(self):
+        input_text = 'test'
+        self.driver.find_element_by_id(
+            "email-input").send_keys(f'{input_text}{Keys.TAB}')
+        expected_id = 'email-input'
         result = self.driver.find_element_by_id(
-            expected_id).get_attribute('placeholder')
-        expected_text = ''
-        assert result == expected_text, f'Error. Expected {expected_text}, but could not find that text'
+            expected_id).get_attribute('value')
+        assert result == input_text, f'Error. Expected {input_text}, but found {result}'
+
+    def test_typing_will_reset_validation_error(self):
+        self.driver.find_element_by_id(
+            "email-input").send_keys(f'test{Keys.TAB}@')
+        expected_id = 'email-input-helper-text'
+        result = self.driver.find_elements_by_id(expected_id)
+        assert len(
+            result) == 0, f'Error. Expected {expected_id} not to be present, but it was displayed'
+
 
     def teardown_method(self):
         self.driver.quit()

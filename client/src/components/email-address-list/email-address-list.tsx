@@ -1,17 +1,19 @@
 import { selectEmailAddresses } from "../../slices/email-address-list.slice";
 import { useAppSelector } from "../../app/hooks";
-import Box from "@mui/material/Box";
 import EmailAddressChip from "../email-address-chip/email-address-chip";
+import Grid from "@mui/material/Grid";
 
-const EmailList = () => {
+const EmailAddressList = () => {
   const emails = useAppSelector(selectEmailAddresses);
   return (
-    <Box id="email-list">
+    <Grid container id="email-list" spacing={1} sx={{ marginBottom: (theme) => theme.spacing(1) }}>
       {emails.map((email) => (
-        <EmailAddressChip emailAddress={email} key={email} />
+        <Grid item key={email}>
+          <EmailAddressChip emailAddress={email} />
+        </Grid>
       ))}
-    </Box>
+    </Grid>
   );
 };
 
-export default EmailList;
+export default EmailAddressList;

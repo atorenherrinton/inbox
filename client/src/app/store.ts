@@ -1,12 +1,14 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import emailCardReducer from "../slices/email-card.slice";
 import emailAddressListReducer from "../slices/email-address-list.slice";
+import emailCardReducer from "../slices/email-card.slice";
+import emailInputReducer from "../slices/email-input.slice";
 import navDrawerReducer from "../slices/nav-drawer.slice";
 
 export const store = configureStore({
   reducer: {
-    emailCard: emailCardReducer,
     emailAddressList: emailAddressListReducer,
+    emailCard: emailCardReducer,
+    emailInput: emailInputReducer,
     navDrawer: navDrawerReducer,
   },
 });
