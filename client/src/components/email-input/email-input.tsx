@@ -1,9 +1,10 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { checkForDuplicate, validateEmailAddress } from "../../utils/utils";
 import {
+  addEmailAddress,
   selectEmailAddress,
   selectEmailAddresses,
   setEmailAddress,
-  verifyEmailAddress,
 } from "../../slices/email-address-list.slice";
 import {
   selectIsEmailInputFocused,
@@ -36,19 +37,30 @@ const EmailInput = () => {
       e.preventDefault();
     } else if (e.key === "Tab" || e.key === "Enter") {
       e.preventDefault();
-      dispatch(verifyEmailAddress(emailAddress));
+      if (
+        checkForDuplicate(emailAddress, emailAddresses) &&
+        validateEmailAddress(emailAddress)
+      ) {
+        dispatch(addEmailAddress(emailAddress));
+        dispatch(setEmailAddress(""));
+      } else if (!validateEmailAddress(emailAddress)) {
+        dispatch(setValidationError("Please enter a valid email"));
+      } else {
+        dispatch(setValidationError("Email already added"));
+      }
     }
   };
 
   const handleSetEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setEmailAddress(e.target.value));
     if (validationError) {
-      dispatch(setValidationError(""))
+      dispatch(setValidationError(""));
     }
   };
 
   return (
     <TextField
+      autoComplete="off"
       error={validationError ? true : false}
       id="email-input"
       inputRef={(input) => {
@@ -64,6 +76,8 @@ const EmailInput = () => {
       placeholder="To"
       size="small"
       value={emailAddress}
+      variant="standard"
+
     />
   );
 };

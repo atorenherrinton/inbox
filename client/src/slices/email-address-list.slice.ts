@@ -39,31 +39,5 @@ export const selectEmailAddress = (state: RootState) =>
 export const selectEmailAddresses = (state: RootState) =>
   state.emailAddressList.emailAddresses;
 
-export const verifyEmailAddress =
-  (emailAddress: string): AppThunk =>
-  (dispatch, getState) => {
-    const emailAddresses = selectEmailAddresses(getState());
-
-    const checkForDuplicate = (emailAddress: string) => {
-      if (!emailAddresses.includes(emailAddress)) {
-        return true;
-      }
-    };
-
-    const validateEmailAddress = (emailAddress: string) => {
-      const re =
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(emailAddress.toLowerCase());
-    };
-
-    if (checkForDuplicate(emailAddress) && validateEmailAddress(emailAddress)) {
-      dispatch(addEmailAddress(emailAddress));
-      dispatch(setEmailAddress(""));
-    } else if (!validateEmailAddress(emailAddress)) {
-      dispatch(setValidationError("Please enter a valid email"));
-    } else {
-      dispatch(setValidationError("That email was already added"));
-    }
-  };
 
 export default emailAddressListSlice.reducer;

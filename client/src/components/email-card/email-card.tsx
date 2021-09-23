@@ -67,11 +67,13 @@ const EmailCard = () => {
         {!isEmailInputCollapsed ? <EmailInput /> : null}
 
         <TextField
+        autoComplete="off"
           id="subject-input"
           fullWidth
           placeholder="Subject"
           size="small"
           sx={{ marginTop: (theme) => theme.spacing(1) }}
+          variant="standard"
         />
         <TextField
           id="email-body"
