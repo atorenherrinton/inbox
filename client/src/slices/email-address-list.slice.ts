@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState, AppThunk } from "../app/store";
-import { setValidationError } from "./email-input.slice";
+import { RootState } from "../app/store";
 
 export interface emailAddressListState {
   emailAddresses: Array<string>;
@@ -38,6 +37,5 @@ export const selectEmailAddress = (state: RootState) =>
 
 export const selectEmailAddresses = (state: RootState) =>
   state.emailAddressList.emailAddresses;
-
 
 export default emailAddressListSlice.reducer;

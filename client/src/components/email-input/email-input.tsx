@@ -77,7 +77,6 @@ const EmailInput = () => {
       size="small"
       value={emailAddress}
       variant="standard"
-
     />
   );
 };

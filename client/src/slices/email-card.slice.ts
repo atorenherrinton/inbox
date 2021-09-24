@@ -17,8 +17,8 @@ export const emailCardSlice = createSlice({
   name: "emailCard",
   initialState,
   reducers: {
-    setEmailCardOpen: (state) => {
-      state.isEmailCardOpen = !state.isEmailCardOpen;
+    setEmailCardOpen: (state, action: PayloadAction<boolean>) => {
+      state.isEmailCardOpen = action.payload;
     },
     setEmailInputCollapsed: (state, action: PayloadAction<boolean>) => {
       state.isEmailInputCollapsed = action.payload;
@@ -41,7 +41,7 @@ export const selectIsEmailCardOpen = (state: RootState) =>
 export const selectIsEmailInputCollapsed = (state: RootState) =>
   state.emailCard.isEmailInputCollapsed;
 
-  export const selectIsEmailInputFocused = (state: RootState) =>
+export const selectIsEmailInputFocused = (state: RootState) =>
   state.emailCard.isEmailInputFocused;
 
 export default emailCardSlice.reducer;

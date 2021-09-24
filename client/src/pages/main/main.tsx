@@ -1,15 +1,40 @@
-import { selectIsEmailCardOpen } from "../../slices/email-card.slice";
-import { useSelector } from "react-redux";
+import { useCallback, useEffect } from "react";
+import {
+  selectIsEmailCardOpen,
+  setEmailCardOpen,
+} from "../../slices/email-card.slice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import Box from "@mui/material/Box";
 import EmailCard from "../../components/email-card/email-card";
 import Grid from "@mui/material/Grid";
 import NavDrawer from "../../components/nav-drawer/nav-drawer";
 import NewEmailButton from "../../components/new-email-button/new-email-button";
 
 const Main = () => {
-  const isEmailCardOpen = useSelector(selectIsEmailCardOpen);
+  const dispatch = useAppDispatch();
+  const isEmailCardOpen = useAppSelector(selectIsEmailCardOpen);
+
+  const handleOpenNewEmail = useCallback(
+    (e) => {
+      if (e.key === "c") {
+        dispatch(setEmailCardOpen(true));
+      }
+    },
+    [dispatch]
+  );
+
+  useEffect(() => {
+    window.addEventListener("keydown", (e) => {
+      handleOpenNewEmail(e);
+    });
+
+    return window.removeEventListener("keydown", (e) => {
+      handleOpenNewEmail(e);
+    });
+  }, [handleOpenNewEmail]);
 
   return (
-    <div id="main-page">
+    <Box id="main-page" tabIndex={0}>
       <NavDrawer />
       {isEmailCardOpen ? null : <NewEmailButton />}
       <Grid
@@ -24,7 +49,7 @@ const Main = () => {
           </Grid>
         ) : null}
       </Grid>
-    </div>
+    </Box>
   );
 };
 

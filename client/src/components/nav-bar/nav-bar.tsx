@@ -5,6 +5,7 @@ import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import SearchBar from "../search-bar/search-bar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
@@ -31,6 +32,8 @@ const NavBar = () => {
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Inbox
           </Typography>
+          <SearchBar />
+          <Box sx={{ flexGrow: 1 }} />
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>

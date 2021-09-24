@@ -6,7 +6,12 @@ import Grid from "@mui/material/Grid";
 const EmailAddressList = () => {
   const emails = useAppSelector(selectEmailAddresses);
   return (
-    <Grid container id="email-list" spacing={1} sx={{ marginBottom: (theme) => theme.spacing(1) }}>
+    <Grid
+      container
+      id="email-list"
+      spacing={1}
+      sx={{ marginBottom: (theme) => theme.spacing(1) }}
+    >
       {emails.map((email) => (
         <Grid item key={email}>
           <EmailAddressChip emailAddress={email} />

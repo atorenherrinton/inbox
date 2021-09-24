@@ -41,7 +41,7 @@ const EmailCard = () => {
           <IconButton
             aria-label="close button"
             id="close-button"
-            onClick={() => dispatch(setEmailCardOpen())}
+            onClick={() => dispatch(setEmailCardOpen(false))}
             sx={{ color: (theme) => theme.palette.grey[50] }}
           >
             <CloseIcon />
@@ -67,7 +67,7 @@ const EmailCard = () => {
         {!isEmailInputCollapsed ? <EmailInput /> : null}
 
         <TextField
-        autoComplete="off"
+          autoComplete="off"
           id="subject-input"
           fullWidth
           placeholder="Subject"
@@ -101,7 +101,7 @@ const EmailCard = () => {
           <IconButton
             aria-label="delete email"
             id="delete-button"
-            onClick={() => dispatch(setEmailCardOpen())}
+            onClick={() => dispatch(setEmailCardOpen(false))}
             sx={{ marginLeft: "auto" }}
           >
             <DeleteIcon />

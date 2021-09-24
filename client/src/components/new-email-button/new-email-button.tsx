@@ -10,7 +10,7 @@ const NewEmailButton = () => {
   const [expanded, setExpanded] = useState(false);
 
   const handleOpenEmail = () => {
-    dispatch(setEmailCardOpen());
+    dispatch(setEmailCardOpen(true));
     setExpanded(!expanded);
   };
 
