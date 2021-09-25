@@ -35,6 +35,7 @@ const EmailChip = ({ emailAddress }: EmailProps) => {
       label={emailAddress}
       onDelete={handleDelete}
       onClick={handleEditEmail}
+      size="small"
       variant="outlined"
     />
   );
