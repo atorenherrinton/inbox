@@ -8,7 +8,7 @@ const EmailAddressList = () => {
   return (
     <Grid
       container
-      id="email-list"
+      id="email-address-list"
       spacing={1}
       sx={{ marginBottom: (theme) => theme.spacing(1) }}
     >

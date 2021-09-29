@@ -1,9 +1,15 @@
+import { useAppDispatch } from "../../app/hooks";
+import { clearEmails } from "../../slices/email-list.slice";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
-const TableHeader = () => {
+const EmailListHeader = () => {
+  const dispatch = useAppDispatch();
+  const handleClearEmails = () => {
+    dispatch(clearEmails());
+  };
   return (
     <Grid
       container
@@ -12,7 +18,6 @@ const TableHeader = () => {
       justifyContent="space-between"
       sx={{
         paddingLeft: (theme) => theme.spacing(1),
-
       }}
     >
       <Grid item>
@@ -24,6 +29,7 @@ const TableHeader = () => {
         <IconButton
           aria-label="clear all"
           id="done-all-button"
+          onClick={handleClearEmails}
           size="small"
           sx={{ float: "right" }}
         >
@@ -34,4 +40,4 @@ const TableHeader = () => {
   );
 };
 
-export default TableHeader;
+export default EmailListHeader;

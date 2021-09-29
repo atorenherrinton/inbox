@@ -43,7 +43,7 @@ class TestEmailCard:
             result) == 0, f'Error. Expected {expected_id} to not to be there, but it was displayed'
 
     def test_email_list_is_rendered(self):
-        expected_id = "email-list"
+        expected_id = "email-address-list"
         result = self.driver.find_elements_by_id(expected_id)
         assert len(
             result) == 1, f'Error. Expected {expected_id}, but could not find that id'

@@ -44,11 +44,18 @@ class TestMainPage:
         assert len(
             result) == 1, f'Error. Expected {expected_id}, but could not find that id'
 
-    def test_email_table_renders(self):
-        expected_id = "email-table"
+    def test_all_done_animation_renders_by_default(self):
+        expected_id = "all-done-animation"
         result = self.driver.find_elements_by_id(expected_id)
         assert len(
             result) == 1, f'Error. Expected {expected_id}, but could not find that id'
+
+    def test_email_list_renders(self):
+        expected_id = "email-list"
+        result = self.driver.find_elements_by_id(expected_id)
+        assert len(
+            result) == 1, f'Error. Expected {expected_id}, but could not find that id'
+
 
     def teardown_method(self):
         self.driver.quit()

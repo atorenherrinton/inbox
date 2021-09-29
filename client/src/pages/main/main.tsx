@@ -3,16 +3,19 @@ import {
   selectIsEmailCardOpen,
   setEmailCardOpen,
 } from "../../slices/email-card.slice";
+import { selectEmails } from "../../slices/email-list.slice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import AllDoneAnimation from "../../components/all-done-animation/all-done-animation";
 import Box from "@mui/material/Box";
 import EmailCard from "../../components/email-card/email-card";
-import EmailTable from "../../components/email-table/email-table";
+import EmailList from "../../components/email-list/email-list";
 import Grid from "@mui/material/Grid";
 import NavDrawer from "../../components/nav-drawer/nav-drawer";
 import NewEmailButton from "../../components/new-email-button/new-email-button";
 
 const Main = () => {
   const dispatch = useAppDispatch();
+  const emails = useAppSelector(selectEmails);
   const isEmailCardOpen = useAppSelector(selectIsEmailCardOpen);
 
   const handleOpenNewEmail = useCallback(
@@ -45,7 +48,7 @@ const Main = () => {
         alignItems="center"
       >
         <Grid item>
-          <EmailTable />
+          {emails.length > 0 ? <EmailList /> : <AllDoneAnimation />}
         </Grid>
       </Grid>
       <Grid
